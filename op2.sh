@@ -12,4 +12,10 @@
 
 # Modify default IP
 #=================================================
-sed -i "s/192.168.1.1/10.0.0.2/" package/base-files/files/bin/config_generate
+sed -i '/set lan_ifname=eth0/a\
+        set lan_proto=dhcp' package/base-files/files/bin/config_generate
+# 2. 删除原LAN口静态IP/子网掩码/网关配置
+sed -i '/set lan_ipaddr=/d' package/base-files/files/bin/config_generate
+sed -i '/set lan_netmask=/d' package/base-files/files/bin/config_generate
+sed -i '/set lan_gateway=/d' package/base-files/files/bin/config_generate
+sed -i '/set lan_dns=/d' package/base-files/files/bin/config_generate
